@@ -3,6 +3,7 @@ from Attendee import Attendee
 import random
 import names
 import math
+import matplotlib.pyplot as plt
 
 
 # cool function name i know
@@ -45,6 +46,12 @@ if __name__ == '__main__':
     # list for hotels class
     hotels = []
 
+    # list for x and y attendees and hotels for graph
+    hotels_x = []
+    hotels_y = []
+    attendees_x = []
+    attendees_y = []
+
     # creating 20 of hotels
     for x in range(20):
         hotels.append(Hotel(random.randint(0, 200), random.randint(0, 200), 0, [], 'Hotel ' + names.get_first_name(gender='female')))
@@ -52,7 +59,26 @@ if __name__ == '__main__':
     # creating 150 of attendees
     attendees = []
     for x in range(150):
-        attendees.append(Attendee(random.randint(0,200), random.randint(0,200), names.get_first_name(gender='male'), {}, {}, None))
+        attendees.append(Attendee(random.randint(0, 200), random.randint(0, 200), names.get_first_name(gender='male'), {}, {}, None))
+
+    # append x and y vals for hotels
+    for x in hotels:
+        hotels_x.append(x.hotel_x)
+        hotels_y.append(x.hotel_y)
+
+    # append x and y for attendees
+    for x in attendees:
+        attendees_x.append(x.x_val)
+        attendees_y.append(x.y_val)
+
+    # plotting the values and making titles for axes/legend
+    plt.scatter(hotels_x, hotels_y, s=80, color='red', label='Hotels')
+    plt.scatter(attendees_x, attendees_y, s=25, color='black', label="Attendees")
+    plt.xlabel('X Value')
+    plt.ylabel('Y Value')
+    plt.title('Hotel and Attendee Locations')
+    plt.legend(bbox_to_anchor=(0.75, 1))
+    plt.show()
 
     # getting distance of all attendees to hotels
     for x in attendees:
